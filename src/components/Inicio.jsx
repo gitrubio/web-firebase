@@ -33,12 +33,12 @@ export default function Inicio() {
 
   const validarDatos = () => {
     return [
-      form.nombre.length === 0 ? 'el nombre es obligatorio' : [],
-      form.apellido.length === 0 ? 'el apellido es obligatorio' : [],
-      form.edad <= 0 ? 'la edad debe ser mayor a 0 ' : [],
-      form.universidad.length === 0 ? 'la universidad es obligatoria' : [],
-      form.direccion.length === 0 ? 'la direccion es obligatoria' : []
-    ]
+      form.nombre.length === 0 ? 'el nombre es obligatorio' : '',
+      form.apellido.length === 0 ? 'el apellido es obligatorio' : '',
+      form.edad <= 0 ? 'la edad debe ser mayor a 0 ' : '',
+      form.universidad.length === 0 ? 'la universidad es obligatoria' : '',
+      form.direccion.length === 0 ? 'la direccion es obligatoria' : ''
+    ].filter((value) => value !== '')
   }
 
   const guardar = () => {
