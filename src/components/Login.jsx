@@ -3,6 +3,7 @@ import {Link , useNavigate} from "react-router-dom";
 import cuc from '../images/logocuc.png';
 import Swal from "sweetalert2";
 import { auth } from '../firebase';
+import { useEffect } from 'react';
 
 
 export default function Login() {
@@ -10,14 +11,20 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    document.addEventListener('keydown',enter,true)
+  },[])
+
  
+ const enter = (value) =>{
+  if(value.key === 'Enter'){verificar()}
+ }
   const verificar = () => {
-   
-    if (!email.trim()) {
+    if (email.length === 0) {
       messeg('el campo email es obligatorio')
       return
     }
-    if (!password.trim()) {
+    if (password.length === 0) {
       messeg('el campo password es obligatorio')
       return
     } 
@@ -86,7 +93,7 @@ export default function Login() {
                 <label className="form-label" htmlFor="Contraseña">Contraseña</label>
               </div>
               <div className="d-grid gap-2">
-                <button type='button' onClick={verificar} className="btn btn-danger btn-block mb-4">Sign in</button>
+                <button type='button' onClick={verificar}  onKeyDown={(e)=>enter(e.target.value)} className="btn btn-danger btn-block mb-4">Sign in</button>
               </div>
             </form>
           </div>
