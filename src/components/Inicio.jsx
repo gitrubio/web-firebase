@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from '../firebase';
+import axios from 'axios';
 export default function Inicio() {
   const [form, setForm] = useState(
     {
@@ -16,22 +17,36 @@ export default function Inicio() {
       img: ''
     }
   )
+  const [imagenes,setImagenes] = useState([])
 
   const navigate = useNavigate();
 
   //autenticacion de logeo
   useEffect(() => {
     if (auth.currentUser) {
-      
-      setForm({ ...form, userEmail: auth.currentUser.email , img: 'https://random.imagecdn.app/300/300' });
+      setForm({ ...form, userEmail: auth.currentUser.email })
     } else {
       navigate('/login')
     }
   }, [navigate])
 
-
+  
   const guardar = () => {
     enviarDatos();
+  }
+  const obtenerImagenes = async () => {
+    try {
+      console.log('ejecutando')
+      const data = await axios.get('https://picsum.photos/v2/list')
+      setImagenes(data.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const changeImg = () =>{
+    const random = Math.floor(Math.random() * (imagenes.length - 1 - 0) + 0)
+      setForm({ ...form, img: imagenes[random].download_url})
   }
 
   const enviarDatos = async () => {
@@ -100,7 +115,7 @@ export default function Inicio() {
     })
   }
 
- 
+
   return (
     <section className="text-center">
       <div className='cierre'>
@@ -123,7 +138,7 @@ export default function Inicio() {
               <h2 className="fw-bold mb-5">Crear Registro</h2>
               <form >
                 <div className="form-outline mb-4">
-                  <img src={form.img} width={200} height={200} className="img-circle"  alt="Cinque Terre"></img>
+                  <img src={form.img} width={200} height={200} className="img-circle" alt="Cinque Terre"></img>
                 </div>
                 <div className="form-outline mb-4">
                   <label className="form-label" >NOMBRE</label>
