@@ -13,7 +13,7 @@ export default function Inicio() {
       universidad: '',
       direccion: '',
       descripcion: '',
-      userEmail:  auth.currentUser?.email ?? '',
+      userEmail: auth.currentUser?.email ?? '',
       img: ''
     }
   )
@@ -31,9 +31,32 @@ export default function Inicio() {
   }, [navigate])
 
 
-  const guardar = () => {
+  const validarDatos = () => {
+    return [
+      form.nombre.length === 0 ? 'el nombre es obligatorio' : [],
+      form.apellido.length === 0 ? 'el apellido es obligatorio' : [],
+      form.edad <= 0 ? 'la edad debe ser mayor a 0 ' : [],
+      form.universidad.length === 0 ? 'la universidad es obligatoria' : [],
+      form.direccion.length === 0 ? 'la direccion es obligatoria' : []
+    ]
+  }
 
-    enviarDatos();
+  const guardar = () => {
+    const validacion = validarDatos()
+    if (validacion.length === 0){
+      enviarDatos();
+    }else{
+      console.log(validacion)
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: `<ul>
+         ${validacion.map((val)=> `<li>${val}</li>`)}
+          </ul>`.replaceAll(',',''),
+        showConfirmButton: false,
+        timer: 1200
+      })
+    }
   }
   const obtenerImagenes = async () => {
     try {
@@ -47,10 +70,10 @@ export default function Inicio() {
 
   const randomImg = (array) => {
     const random = Math.floor(Math.random() * (array.length - 1 - 0) + 0)
-    return array[random].download_url 
+    return array[random].download_url
   }
 
-  const change = () =>{
+  const change = () => {
     setForm({ ...form, img: randomImg(imagenes) })
   }
 
@@ -127,7 +150,7 @@ export default function Inicio() {
       </div>
       <div className="p-5 bg-image fondo"></div>
 
-
+      
       <div className=" inicio card mx-4 mx-md-5 shadow-5-strong">
         <div className="card-body py-5 px-md-5">
           <div className='col-lg-12 consultar'>
@@ -139,7 +162,7 @@ export default function Inicio() {
               <h2 className="fw-bold mb-5">Crear Registro</h2>
               <form >
                 <div className="form-outline mb-4">
-                  <img src={form.img} onClick={change}  width={200} height={200} className="img-change" alt="Cinque Terre"></img>
+                  <img src={form.img} onClick={change} width={200} height={200} className="img-change" alt="Cinque Terre"></img>
                 </div>
                 <div className="form-outline mb-4">
                   <label className="form-label" >NOMBRE</label>
