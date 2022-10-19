@@ -83,7 +83,7 @@ export default function TablaPeticiones() {
           </div>
           <div className="row d-flex justify-content-left">
             <div className="col-lg-12">
-              <h2 className="fw-bold mb-5">Solicitudes</h2>
+              <h2 className="fw-bold mb-5">REGISTROS</h2>
               <table className="table table-striped">
                 <thead className=''>
                   <tr>

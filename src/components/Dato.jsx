@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 export default function Dato({ registro, delete: d }) {
-  const { docID, nombre, descripcion, apellido, genero, edad, userEmail, universidad, direccion, img } = registro;
+  const { docID, nombre, descripcion, apellido, genero, edad, universidad, direccion, img } = registro;
   const borrar = () => {
     d(docID);
   };
