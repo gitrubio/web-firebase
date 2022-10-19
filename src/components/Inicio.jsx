@@ -13,40 +13,45 @@ export default function Inicio() {
       universidad: '',
       direccion: '',
       descripcion: '',
-      userEmail: '',
+      userEmail:  auth.currentUser.email ?? '',
       img: ''
     }
   )
-  const [imagenes,setImagenes] = useState([])
+  const [imagenes, setImagenes] = useState([])
 
   const navigate = useNavigate();
 
   //autenticacion de logeo
   useEffect(() => {
     if (auth.currentUser) {
-      setForm({ ...form, userEmail: auth.currentUser.email })
+      obtenerImagenes()
     } else {
       navigate('/login')
     }
   }, [navigate])
 
-  
+
   const guardar = () => {
+    
     enviarDatos();
   }
   const obtenerImagenes = async () => {
     try {
-      console.log('ejecutando')
       const data = await axios.get('https://picsum.photos/v2/list')
+      setForm({ ...form, img: randomImg(data.data) })
       setImagenes(data.data)
     } catch (error) {
       console.error(error)
     }
   }
 
-  const changeImg = () =>{
-    const random = Math.floor(Math.random() * (imagenes.length - 1 - 0) + 0)
-      setForm({ ...form, img: imagenes[random].download_url})
+  const randomImg = (array) => {
+    const random = Math.floor(Math.random() * (array.length - 1 - 0) + 0)
+    return array[random].download_url 
+  }
+
+  const change = () =>{
+    setForm({ ...form, img: randomImg(imagenes) })
   }
 
   const enviarDatos = async () => {
@@ -60,10 +65,6 @@ export default function Inicio() {
     }
   }
 
-  const cancelar = () => {
-    limpiar()
-  }
-
   const limpiar = () => {
     setForm({
       nombre: '',
@@ -73,8 +74,8 @@ export default function Inicio() {
       universidad: '',
       direccion: '',
       descripcion: '',
-      userEmail: auth.currentUser.email,
-      img: ''
+      userEmail: auth.currentUser.email ?? '',
+      img: randomImg(imagenes)
     })
   }
   const cerrarSesion = () => {
@@ -138,7 +139,7 @@ export default function Inicio() {
               <h2 className="fw-bold mb-5">Crear Registro</h2>
               <form >
                 <div className="form-outline mb-4">
-                  <img src={form.img} width={200} height={200} className="img-circle" alt="Cinque Terre"></img>
+                  <img src={form.img} onClick={change}  width={200} height={200} className="img-change" alt="Cinque Terre"></img>
                 </div>
                 <div className="form-outline mb-4">
                   <label className="form-label" >NOMBRE</label>
@@ -179,7 +180,7 @@ export default function Inicio() {
 
 
               </form>
-              <button onClick={cancelar} className="btn btn-danger btn-block mb-4 cancelar">
+              <button onClick={limpiar} className="btn btn-danger btn-block mb-4 cancelar">
                 Cancelar
               </button>
               <button onClick={guardar} className="btn btn-primary btn-block mb-4">

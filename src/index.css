@@ -54,6 +54,13 @@ body {
 .cancelar{
   margin-right: 20px;
 }
+.img-change{
+  cursor: pointer;
+}
+.img-change:hover {
+ background-color: black;
+ opacity: 70%;
+}
 .cierre{
   
   text-align: right;
