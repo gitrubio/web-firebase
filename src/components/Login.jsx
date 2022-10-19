@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import {Link , useNavigate} from "react-router-dom"; 
 import cuc from '../images/logocuc.png';
 import Swal from "sweetalert2";
 import { auth } from '../firebase';
-import { useEffect } from 'react';
+
 
 
 export default function Login() {
@@ -38,7 +38,7 @@ export default function Login() {
   
    const Login =  React.useCallback(async()=>{
      try {
-       const response = await auth.signInWithEmailAndPassword(email,password);
+      await auth.signInWithEmailAndPassword(email,password);
        setEmail('');
        setPassword('');
        navigate('/inicio')
