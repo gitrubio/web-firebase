@@ -13,7 +13,7 @@ export default function Inicio() {
       universidad: '',
       direccion: '',
       descripcion: '',
-      userEmail:  auth.currentUser.email ?? '',
+      userEmail:  auth.currentUser?.email ?? '',
       img: ''
     }
   )
@@ -32,7 +32,7 @@ export default function Inicio() {
 
 
   const guardar = () => {
-    
+
     enviarDatos();
   }
   const obtenerImagenes = async () => {
@@ -74,7 +74,7 @@ export default function Inicio() {
       universidad: '',
       direccion: '',
       descripcion: '',
-      userEmail: auth.currentUser.email ?? '',
+      userEmail: auth.currentUser?.email ?? '',
       img: randomImg(imagenes)
     })
   }

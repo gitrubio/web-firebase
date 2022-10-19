@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom"; 
+import React, { useState } from 'react';
+import {Link , useNavigate} from "react-router-dom"; 
 import cuc from '../images/logocuc.png';
 import Swal from "sweetalert2";
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
