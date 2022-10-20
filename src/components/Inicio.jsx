@@ -26,7 +26,7 @@ export default function Inicio() {
     if (auth.currentUser) {
       obtenerImagenes()
     } else {
-      navigate('/login')
+      navigate('/')
     }
   }, [navigate])
 
@@ -113,7 +113,7 @@ export default function Inicio() {
     }).then((result) => {
       if (result.isConfirmed) {
         auth.signOut().then(() => {
-          navigate('/login')
+          navigate('/')
         })
       }
     })

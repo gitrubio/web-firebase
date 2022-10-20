@@ -17,7 +17,9 @@ export default function Login() {
 
  
  const enter = (value) =>{
-  if(value.key === 'Enter'){verificar()}
+  if(value.key === 'Enter'){
+    document.getElementById('enviar').click()
+  }
  }
   const verificar = () => {
     if (email.length === 0) {
@@ -75,7 +77,7 @@ export default function Login() {
           <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
             <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
               <li className="nav-item" role="presentation">
-                <Link to="/login" className="nav-link active bg-danger" ><b>Login</b></Link>
+                <Link to="/" className="nav-link active bg-danger" ><b>Login</b></Link>
               </li>
               <li className="nav-item" role="presentation">
                 <Link to="/register" className="nav-link text-danger " ><b>Register</b></Link>
@@ -93,7 +95,7 @@ export default function Login() {
                 <label className="form-label" htmlFor="Contraseña">Contraseña</label>
               </div>
               <div className="d-grid gap-2">
-                <button type='button' onClick={verificar}  onKeyDown={(e)=>enter(e.target.value)} className="btn btn-danger btn-block mb-4">Sign in</button>
+                <button id='enviar' type='button' onClick={verificar}  onKeyDown={(e)=>enter(e.target.value)} className="btn btn-danger btn-block mb-4">Sign in</button>
               </div>
             </form>
           </div>

@@ -16,7 +16,7 @@ export default function TablaPeticiones() {
       setUser(auth.currentUser);
 
     } else {
-      navigate('/login')
+      navigate('/')
     }
   }, [navigate])
 
@@ -36,7 +36,7 @@ export default function TablaPeticiones() {
     }).then((result) => {
       if (result.isConfirmed) {
         auth.signOut().then(() => {
-          navigate('/login')
+          navigate('/')
         })
       }
     })
